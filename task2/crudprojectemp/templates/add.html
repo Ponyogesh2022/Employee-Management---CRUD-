@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        body {
+            margin: auto;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow: auto;
+            background: linear-gradient(315deg, rgba(101,0,94,1) 3%, rgba(60,132,206,1) 38%, rgba(48,238,226,1) 68%, rgba(255,25,25,1) 98%);
+            animation: gradient 15s ease infinite;
+            background-size: 400% 400%;
+            background-attachment: fixed;
+        }
+        
+        @keyframes gradient {
+            0% {
+                background-position: 0% 0%;
+            }
+            50% {
+                background-position: 100% 100%;
+            }
+            100% {
+                background-position: 0% 0%;
+            }
+        }
+        
+        .wave {
+            background: rgb(255 255 255 / 25%);
+            border-radius: 1000% 1000% 0 0;
+            position: fixed;
+            width: 200%;
+            height: 12em;
+            animation: wave 10s -3s linear infinite;
+            transform: translate3d(0, 0, 0);
+            opacity: 0.8;
+            bottom: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        .wave:nth-of-type(2) {
+            bottom: -1.25em;
+            animation: wave 18s linear reverse infinite;
+            opacity: 0.8;
+        }
+        
+        .wave:nth-of-type(3) {
+            bottom: -2.5em;
+            animation: wave 20s -1s reverse infinite;
+            opacity: 0.9;
+        }
+        
+        @keyframes wave {
+            2% {
+                transform: translateX(1);
+            }
+        
+            25% {
+                transform: translateX(-25%);
+            }
+        
+            50% {
+                transform: translateX(-50%);
+            }
+        
+            75% {
+                transform: translateX(-25%);
+            }
+        
+            100% {
+                transform: translateX(1);
+            }
+        }
+      
+        div{
+            width:500px;
+            margin:auto
+
+        }
+        .bttn{
+            display:flex;
+            flex-direction:row;
+            justify-content:space-between;
+        }
+        #span1,#span1,#span1,#span1,#span1,#span1{
+          color:red;
+        }
+
+    </style>
+    <title>Crud Applications</title>
+  </head>
+  <body>
+    <div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+     </div>
+    <h1 class="alert alert-warning text-center">Employee Management System</h1>
+    <br>
+    <form action="/add/" method="POST" onsubmit="return valid()">
+        {% csrf_token %}
+        <div class="form-group">
+          <label>Employee ID<span style="color:red">*</span></label>
+          <input type="number" class="form-control" placeholder="Id" name="eid" id="id1">
+          <span id="span1"></span>
+        </div>
+        <div class="form-group mt-4">
+          <label>Employee Name<span style="color:red">*</span></label>
+          <input type="text" class="form-control" placeholder="Name" name="ename" id="id2">
+          <span id="span2"></span>
+
+        </div>
+        <div class="form-group mt-4">
+            <label>Employee Email ID<span style="color:red">*</span></label>
+            <input type="email" class="form-control" placeholder="Email ID" name="eemail" id="id3">
+            <span id="span3"></span>
+
+          </div>
+          <div class="form-group mt-4">
+            <label>Employee Mobile Number<span style="color:red">*</span></label>
+            <input type="number" class="form-control" placeholder="Mobile Number" name="ephno" id="id4">
+            <span id="span4"></span>
+
+          </div>
+          <div class="form-group mt-4">
+            <label>Employee Date Of Birth<span style="color:red">*</span></label>
+            <input type="date" class="form-control" placeholder="Date Of Birth" name="edob" id="id5">
+            <span id="span5"></span>
+
+          </div>
+          <div class="form-group mt-4">
+            <label>Last Modified Date<span style="color:red">*</span></label>
+            <input type="date" class="form-control" placeholder="Last Modified Date" name="lmd" id="id6">
+            <span id="span6"></span>
+
+          </div>
+
+        <div class="mt-4 bttn">
+        <input type="submit" value="Submit" class="btn btn-primary" >
+        <a href="/show/" class="btn btn-secondary">Show All</a>
+        </div>
+        <div class="alert alert-success mt-5">
+          {{r}}
+        </div>
+      </form>
+      <script>
+        function valid()
+        {
+          //id
+          t1=document.getElementById("id1");
+          s1=document.getElementById("span1");
+          exp1=/^[0-9]{5}$/;
+          if (t1.value==""){
+            s1.innerHTML="Id Cannot Be Empty"
+            t1.focus();
+            return false;
+          }
+          else if(exp1.test(t1.value)==false){
+            s1.innerHTML="Id must be 2-5 characters"
+            t1.focus();
+            return false;
+          }
+          else{
+            s1.innerHTML="";
+          }
+
+
+          //name
+          t2=document.getElementById("id2");
+          s2=document.getElementById("span2");
+          exp2=/^[a-z A-Z]{3-20}$/;
+          if (t2.value==""){
+            s2.innerHTML="Name Cannot Be Empty"
+            t2.focus();
+            return false;
+          }
+          else if(exp1.test(t1.value)==false){
+            s2.innerHTML="Name must allow alphabets only & accept 3 to 20 characters"
+            t2.focus();
+            return false;
+          }
+          else{
+            s2.innerHTML="";
+          }
+          
+
+      //Phone number
+      t4=document.getElementById("id4");
+      s4=document.getElementById("span4");
+      exp4=/^[6-9]{1}[0-9]{9}$/;
+      if (t4.value==""){
+        s4.innerHTML="Phone Number Cannot Be Empty"
+        t4.focus();
+        return false;
+      }
+      else if(exp4.test(t4.value)==false){
+        s4.innerHTML="Phone number must contains 10 numbers and starts with 6,7,8,9"
+        t4.focus();
+        return false;
+      }
+      else{
+        s1.innerHTML="";
+      }
+
+
+
+        }
+      </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>
